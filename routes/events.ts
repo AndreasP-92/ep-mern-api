@@ -12,10 +12,11 @@ type GetEventsResponse = {
 router.use(express.json());
 
 // Endpoint to Get a list of all events
-router.get('/', async function (req: any, res: any) {
+router.post('/', async function (req: any, res: any) {
   const body = req.body;
-
+  console.log(req.body)
   try {
+    // res.set('Access-Control-Allow-Origin', '*');
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     const response = (await axios(
       `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.API_KEY}&postalCode=${body.zipcode}&locale=da-dk`,
