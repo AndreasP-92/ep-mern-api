@@ -13,12 +13,12 @@ router.use(express.json());
 
 // Endpoint to Get a list of all events
 router.get('/', async function (req: any, res: any) {
-  res.set('Access-Control-Allow-Origin', '*');
+  const body = req.body;
 
   try {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     const response = (await axios(
-      `https://www.eventbriteapi.com/v3/organizations/${process.env.ORGANIZATION_ID}/events`,
+      `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.API_KEY}&postalCode=${body.zipcode}&locale=da-dk`,
       {
         method: 'GET',
         headers: {
