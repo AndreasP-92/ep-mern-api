@@ -28,7 +28,7 @@ const allEvents = async function (req: any, res: any) {
 
 const searchEvents = async function (req: any, res: any) {
   const body = req.body;
-
+  console.log(body)
   const header = {
     Accept: 'application/json',
     'Content-Type': 'application/json;charset=UTF-8',
