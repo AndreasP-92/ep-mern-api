@@ -4,6 +4,7 @@ const app : any  = express();
 const cors : any  = require('cors');
 const path : any = require('path')
 const mongoose = require('mongoose');
+const connect : any = require('./startup/mongoDB')
 
 app.use(cors());
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -12,27 +13,33 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 require('./controller/routes')(app);
 
-const port = process.env.PORT || 8080;
-const server = app.listen(port, () =>
-  console.log(`Listening on port ${port}...`)
-);
+// const port = process.env.PORT || 8080;
+// const server = app.listen(port, () =>
+//   console.log(`Listening on port ${port}...`)
+// );
 
 // =============================================================================================================================================== //
 // ================================================================== MONGO DB =================================================================== //
 // =============================================================================================================================================== //
 
 
-const mongoDB = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}${process.env.MONGO_CONNECTION}`;
+// const mongoDB = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}${process.env.MONGO_CONNECTION}`;
 
-console.log(mongoDB)
+// console.log(mongoDB)
 
-mongoose.connect(mongoDB, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-      console.log("connected to db")
-  }).catch((err : any) => console.log(err))
+// mongoose.connect(mongoDB, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// }).then(() => {
+//       console.log("connected to db")
+//   }).catch((err : any) => console.log(err))
 
   
 
-module.exports = server;
+// module.exports = server;
+
+connect()
+
+app.listen(3000, () => {
+  console.log("Example app listening on port 3000!");
+});
