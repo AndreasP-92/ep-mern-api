@@ -1,15 +1,20 @@
-const mongoose = require('mongoose');
-const config = require("config")
+const mongoose = require("mongoose");
+const config = require("config");
+const db = config.get("db");
 
-async function connect() {
-    mongoose
-        .connect(config.get("db"), {
-            useNewUrlParser: true,
+// async example
+const connectDB = async () => {
+    try {
+        await mongoose.connect(db, {
             useUnifiedTopology: true,
-        })
-        .then(() => console.log("Connected to MongoDB..."));
+            useNewUrlParser: true,
+        });
 
-    mongoose.set("debug", true);
-}
+        console.log("MongoDB Connected");
+    } catch (err) {
+        console.log(err.message);
+    }
+};
 
-module.exports = connect
+module.exports = connectDB;
+
