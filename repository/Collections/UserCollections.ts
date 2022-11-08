@@ -1,7 +1,7 @@
 const User = require("../../Model/User")
 
 module.exports = {
-    createUser: async (body: any, res: any) => {
+    createUser: async (body: any) => {
         const data = new User({
             firstName: body.firstName,
             lastName: body.lastName,
@@ -44,6 +44,44 @@ module.exports = {
                 success: false,
                 object: {},
                 msg: "OOPS, something went wrong in getAllUsers" + error,
+                status: 405
+            }
+        }
+    },
+
+    updateUser: async (body: any, userId:string) => {
+        try {
+            const data = await User.update(userId, body); 
+
+            return {
+                success: true,
+                object: data
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                Object: {},
+                msg: "OOPS, something went wrong updateUser" + error,
+                status: 405
+            }
+        }
+    },
+
+    deleteUser: async (userId:string) => {
+        try {
+            const data = await User.delete(userId);
+
+            return {
+                success: true,
+                Object: data
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                Object: {},
+                msg: "OOPS, something went wrong UpdateUser" + error, 
                 status: 405
             }
         }

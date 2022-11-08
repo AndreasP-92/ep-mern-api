@@ -12,7 +12,22 @@ const getAllUsers = async function (req: any, res: any) {
     res.status(200).json(await userCollection.getAllUsers());
 };
 
+const updateUser = async function (req: any, res: any) {
+    const id = req.params.id
+    const body = req.body
+    console.log(body)
+    res.status(200).json(await userCollection.updateUser(body, id));
+}
+
+const deleteUser = async function (req: any, res: any) {
+    const id = req.params.id
+    console.log(id)
+    res.status(200).json(await userCollection.deleteUser(id));
+}
+
 module.exports = {
     createUser,
-    getAllUsers
+    getAllUsers,
+    updateUser,
+    deleteUser
 }
