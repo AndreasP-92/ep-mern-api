@@ -49,9 +49,9 @@ module.exports = {
         }
     },
 
-    updateUser: async (body: any, userId:string) => {
+    updateUser: async (body: any, userId: string) => {
         try {
-            const data = await User.update(userId, body); 
+            const data = await User.update(userId, body);
 
             return {
                 success: true,
@@ -68,7 +68,26 @@ module.exports = {
         }
     },
 
-    deleteUser: async (userId:string) => {
+    getUserById: async (userId: string) => {
+        try {
+            const data = await User.findById(userId);
+
+            return {
+                success: true,
+                object: data
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                Object: {},
+                msg: "OOPS, something went wrong getUserById" + error,
+                status: 405
+            }
+        }
+    },
+
+    deleteUser: async (userId: string) => {
         try {
             const data = await User.delete(userId);
 
@@ -81,7 +100,7 @@ module.exports = {
             return {
                 success: false,
                 Object: {},
-                msg: "OOPS, something went wrong UpdateUser" + error, 
+                msg: "OOPS, something went wrong UpdateUser" + error,
                 status: 405
             }
         }

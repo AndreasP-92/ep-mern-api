@@ -19,6 +19,12 @@ const updateUser = async function (req: any, res: any) {
     res.status(200).json(await userCollection.updateUser(body, id));
 }
 
+const getUserById = async function (req: any, res: any) {
+    const id = req.params.id
+    res.status(200).json(await userCollection.getUserById(id));
+}
+
+
 const deleteUser = async function (req: any, res: any) {
     const id = req.params.id
     console.log(id)
@@ -29,5 +35,6 @@ module.exports = {
     createUser,
     getAllUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserById
 }
