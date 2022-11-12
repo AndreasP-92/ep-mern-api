@@ -2,26 +2,35 @@ export { };
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  firstName: {
+  firstname: {
     type: String,
     required: true,
     minlength: 3,
     maxlength: 50
   },
-  lastName: {
+  lastname: {
     type: String,
-    required: true, minlength: 3, maxlength: 50
+    required: true, 
+    minlength: 3, 
+    maxlength: 50
   },
   address: {
-    type: String, required: true, minlength: 3, maxlength: 50
+    type: String, 
+    required: true, 
+    minlength: 3, 
+    maxlength: 50
   },
   postal: {
     type: Number,
-    required: true, minlength: 3, maxlength: 4
+    required: true, 
+    minlength: 3, 
+    maxlength: 4
   },
   number: {
     type: Number,
-    required: false, minlength: 8, maxlength: 8
+    required: false, 
+    minlength: 8, 
+    maxlength: 8
   },
   email: {
     type: String,
@@ -32,7 +41,9 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true, minlength: 3, maxlength: 1024
+    required: true, 
+    minlength: 3, 
+    maxlength: 1024
   },
 });
 

@@ -10,7 +10,7 @@
       }
     },
     "host": "localhost:8080",
-    "basePath": "/api/",
+    "basePath": "/",
     "tags": [
       {
         "name": "Users",
@@ -21,60 +21,129 @@
     "consumes": ["application/json"],
     "produces": ["application/json"],
     "paths": {
-        "/users": {
-          "get": {
-            "tags": ["Users"],
-            "summary": "Get all users in system",
-            "responses": {
-              "200": {
-                "description": "OK",
-                "schema": {
-                  "$ref": "#/definitions/Users"
+        "/api/users/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of user that we want to find",
+                    "type": "string"
                 }
-              }
+            ],
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get one users in system",
+                "responses": {
+                "200": {
+                        "description": "OK",
+                        "schema": {
+                        "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Users"],
+                "summary": "Updates a user",
+                "parameters":[
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User that we want to update",
+                        "schema": {
+                          "$ref": "#/definitions/User"
+                        } 
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                        "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Users"],
+                "summary": "Deletes a user",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "User is Deleted",
+                        "schema": {
+                        "$ref": "#/definitions/User"
+                        }
+                    }
+                }
             }
-          }
+        },
+        "/api/users": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get all users in system",
+                "responses": {
+                "200": {
+                    "description": "OK",
+                    "schema": {
+                    "$ref": "#/definitions/User"
+                    }
+                }
+                }
+            },
+            "post": {
+                "tags": ["Users"],
+                "summary": "Inserts a user",
+                "parameters":[
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "schema": {
+                          "$ref": "#/definitions/User"
+                        } 
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "New user is created",
+                        "schema": {
+                        "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
         }
       },
       "definitions": {
         "User": {
-          "required": ["name", "_id", "companies"],
+          "required": ["firstName", "_id"],
           "properties": {
-            "_id": {
-              "type": "integer",
-              "uniqueItems": true
-            },
-            "isPublic": {
-              "type": "boolean"
-            },
-            "name": {
+            "firstname": {
               "type": "string"
             },
-            "books": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "amount": {
-                    "type": "number"
-                  }
-                }
-              }
+            "lastname": {
+              "type": "string"
             },
-            "companies": {
-              "type": "array",
-              "items": {
+            "address" : {
                 "type": "string"
-              }
+            },
+            "postal" : {
+                "type": "integer"
+            },
+            "number" : {
+                "type": "integer"
+            },
+            "email" : {
+                "type": "string"
+            },
+            "password":{
+                "type":"string"
             }
           }
-        },
-        "Users": {
-          "type": "array",
-          "$ref": "#/definitions/User"
         }
       }
   }
