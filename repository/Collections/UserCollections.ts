@@ -1,10 +1,15 @@
 const User = require("../../Model/User")
+const bcrypt = require("bcrypt");
 
 module.exports = {
     createUser: async (body: any) => {
+
+        const salt = await bcrypt.genSalt(10);
+        body.password = await bcrypt.hash(body.password, salt);
+
         const data = new User({
-            firstName: body.firstName,
-            lastName: body.lastName,
+            firstname: body.firstname,
+            lastname: body.lastname,
             email: body.email,
             address: body.address,
             postal: body.postal,
@@ -82,6 +87,28 @@ module.exports = {
                 success: false,
                 Object: {},
                 msg: "OOPS, something went wrong getUserById" + error,
+                status: 405
+            }
+        }
+    },
+
+    validateUser: async (body : any) => {
+        try {
+            const data = await User.findOne({ email: body.email });
+
+            const validPassword = await bcrypt.compare(body.password, data.password)
+
+            return {
+                validPassword: validPassword,
+                success: true,
+                object: data
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                Object: {},
+                msg: "OOPS, something went wrong validateUser" + error,
                 status: 405
             }
         }
