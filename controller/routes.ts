@@ -13,10 +13,10 @@ module.exports = function (app: any) {
 
   // Users
   app.post('/api/users', userRepository.createUser);
-  // app.get('/api/users', userRepository.getAllUsers);
-  // app.get('/api/users/:id', userRepository.getUserById);
-  // app.delete('/api/users/:id', userRepository.deleteUser);
+  app.get('/api/users', userRepository.getAllUsers);
+  app.get('/api/users/:id', userRepository.getUserById);
+  app.delete('/api/users/:id', userRepository.deleteUser);
 
-  // // Login
-  // app.get('/api/login', authJwt.verify, userRepository.login);
+  // Login
+  app.get('/api/login', userRepository.login);
 };
