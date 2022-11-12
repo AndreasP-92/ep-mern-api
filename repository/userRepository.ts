@@ -1,4 +1,6 @@
+export = {}
 const userCollection = require("./Collections/UserCollections")
+const signInUser = require('../service/middleware/signin')
 
 const createUser = async function (req: any, res: any) {
     const body = req.body
@@ -36,7 +38,8 @@ const login = async function (req: any, res: any) {
 
     const validated = await userCollection.validateUser(body);
 
-    validated.validPassword ? res.status(202).json(validated) : res.status(401).json(validated);
+    validated.validPassword ? res.status(202).json(validated, signInUser.generateToken(validated.id)) : res.status(401).json(validated)
+
 }
 
 module.exports = {

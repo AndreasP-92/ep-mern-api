@@ -1,5 +1,6 @@
 export { };
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const userSchema = new mongoose.Schema({
   firstname: {
@@ -10,26 +11,26 @@ const userSchema = new mongoose.Schema({
   },
   lastname: {
     type: String,
-    required: true, 
-    minlength: 3, 
+    required: true,
+    minlength: 3,
     maxlength: 50
   },
   address: {
-    type: String, 
-    required: true, 
-    minlength: 3, 
+    type: String,
+    required: true,
+    minlength: 3,
     maxlength: 50
   },
   postal: {
     type: Number,
-    required: true, 
-    minlength: 3, 
+    required: true,
+    minlength: 3,
     maxlength: 4
   },
   number: {
     type: Number,
-    required: false, 
-    minlength: 8, 
+    required: false,
+    minlength: 8,
     maxlength: 8
   },
   email: {
@@ -41,11 +42,19 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true, 
-    minlength: 3, 
+    required: true,
+    minlength: 3,
     maxlength: 1024
   },
 });
+
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign(
+    {_id: this._id, name: this.firstname},
+    process.env.JWT_PRIVATE_KEY
+  );
+  return token;
+}
 
 const User = mongoose.model("User", userSchema);
 
