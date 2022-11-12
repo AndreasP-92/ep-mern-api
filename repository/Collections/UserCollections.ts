@@ -1,5 +1,6 @@
 const User = require("../../Model/User")
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken")
 
 module.exports = {
     createUser: async (body: any) => {
@@ -92,16 +93,17 @@ module.exports = {
         }
     },
 
-    validateUser: async (body : any) => {
+    validateUser: async (body: any) => {
         try {
-            const data = await User.findOne({ email: body.email });
+            const data = await User.findOne({email: body.email});
 
             const validPassword = await bcrypt.compare(body.password, data.password)
 
             return {
                 validPassword: validPassword,
                 success: true,
-                object: data
+                object: data,
+                msg: ""
             }
         }
         catch (error) {

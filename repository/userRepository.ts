@@ -1,4 +1,5 @@
 const userCollection = require("./Collections/UserCollections")
+const signInUser = require('../service/middleware/signin')
 
 const createUser = async function (req: any, res: any) {
     const body = req.body
@@ -36,7 +37,12 @@ const login = async function (req: any, res: any) {
 
     const validated = await userCollection.validateUser(body);
 
-    validated.validPassword ? res.status(202).json(validated) : res.status(401).json(validated);
+
+    validated.success && validated.validPassword ?
+        res.status(202).json({validPassword: validated.validPassword, generatedToken: signInUser.generateToken(validated.id), msg: validated.msg})
+        :
+        res.status(401).json({validPassword: validated.validPassword, msg: "Login error" + validated.msg})
+
 }
 
 module.exports = {
