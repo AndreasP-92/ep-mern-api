@@ -1,13 +1,13 @@
 export { };
 
 const express = require('express');
-const mongoose = require('mongoose');
-const routes = require('./routes/routes');
 const connect = require('./startup/mongoDB')
 const cors = require('cors');
 const path = require('path')
 
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./repository/swagger.json');
 
 app.use(cors());
 app.use(express.urlencoded({limit: '50mb', extended: true}));
@@ -21,6 +21,17 @@ require('./controller/routes')(app);
 
 connect()
 
-app.listen(3000, () => {
-  console.log("Example app listening on port 3000!");
-});
+const port = process.env.PORT || 8080;
+
+app.listen(port, () =>
+  console.log(`Listening on port ${port}...`)
+);
+
+
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument)
+);
+
+
