@@ -102,7 +102,8 @@ module.exports = {
             return {
                 validPassword: validPassword,
                 success: true,
-                object: data
+                object: data,
+                msg: ""
             }
         }
         catch (error) {

@@ -1,5 +1,4 @@
-export = {}
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 require('dotenv').config();
 
 const generateToken = (id: string) => {
@@ -13,3 +12,5 @@ const generateToken = (id: string) => {
 module.exports = {
     generateToken
 }
+
+export { };
