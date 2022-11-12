@@ -14,6 +14,8 @@ module.exports = function (app: any) {
   app.post('/api/users', userRepository.createUser);
   app.get('/api/users', userRepository.getAllUsers);
   app.get('/api/users/:id', userRepository.getUserById);
-  // app.update('/api/users/:id', userRepository.updateUser);
   app.delete('/api/users/:id', userRepository.deleteUser);
+
+  // Login
+  app.get('/api/login', userRepository.login);
 };
