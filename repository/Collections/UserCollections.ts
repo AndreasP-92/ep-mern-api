@@ -89,7 +89,7 @@ module.exports = {
 
     deleteUser: async (userId: string) => {
         try {
-            const data = await User.delete(userId);
+            const data = await User.deleteOne({userId});
 
             return {
                 success: true,

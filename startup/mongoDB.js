@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
-const config = require("config");
-const db = config.get("db");
+// const config = require("../config/default.json");
+// const db = config.get("db");
+require('dotenv').config();
 
 // async example
 const connectDB = async () => {
     try {
-        await mongoose.connect(db, {
+        await mongoose.connect(process.env.MONGO_CONNECTIONSTRING, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
         });
