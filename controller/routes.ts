@@ -8,6 +8,8 @@ module.exports = function (app: any) {
   // Events
   app.post('/api/searchEvents', eventsRepository.searchEvents);
   app.get('/api/allEvents', eventsRepository.allEvents);
+  app.post('/api/nextEventPage', eventsRepository.getNextEventPage);
+
   app.post('/api/create/sliderImage', sliderImageRepository.insertSliderImage);
   app.get('/api/getAll/sliderImage', sliderImageRepository.getAllSliderImage);
 
