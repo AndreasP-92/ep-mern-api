@@ -45,11 +45,16 @@ const login = async function (req: any, res: any) {
 
 }
 
+const verifyedUser = async function (req: any, res: any){
+    res.status(200).json("user content");
+}
+
 module.exports = {
     createUser,
     getAllUsers,
     updateUser,
     deleteUser,
     getUserById,
-    login
+    login,
+    verifyedUser
 }
