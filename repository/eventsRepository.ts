@@ -46,6 +46,27 @@ const searchEvents = async function (req: any, res: any) {
   }
 };
 
+const fetchEventDetails = async function (req: any, res: any) {
+  const eventId = req.params.id
+  console.log(eventId)
+  
+  const header = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json;charset=UTF-8',
+  };
+
+  try {
+    const response = (await axios(
+      `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${process.env.API_KEY}`,
+      header
+    )) as GetEventsResponse;
+      console.log(response);
+    res.status(200).json(response.data);
+  } catch (err) {
+    res.status(500).json({message: err});
+  }
+};
+
 const getNextEventPage = async function (req: any, res: any) {
   const body = req.body;
   console.log(body)
@@ -69,5 +90,6 @@ const getNextEventPage = async function (req: any, res: any) {
 module.exports = {
   searchEvents,
   allEvents,
+  fetchEventDetails,
   getNextEventPage
 };

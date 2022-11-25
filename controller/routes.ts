@@ -12,6 +12,7 @@ module.exports = function (app: any) {
 
   app.post('/api/create/sliderImage', sliderImageRepository.insertSliderImage);
   app.get('/api/getAll/sliderImage', sliderImageRepository.getAllSliderImage);
+  app.get('/api/fetchEvent/:id', eventsRepository.fetchEventDetails);
 
   // Users
   app.post('/api/users', userRepository.createUser);

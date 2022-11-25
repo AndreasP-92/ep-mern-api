@@ -33,5 +33,3 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument)
 );
-
-//ss
