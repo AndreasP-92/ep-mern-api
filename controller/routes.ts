@@ -23,6 +23,6 @@ module.exports = function (app: any) {
 
 
   // Login
-  app.get('/api/login/verify', authJwt.verify, userRepository.verifyedUser)
-  app.get('/api/login', userRepository.login);
+  app.post('/api/login/verify', authJwt.verify, userRepository.verifyedUser)
+  app.post('/api/login', userRepository.login);
 };

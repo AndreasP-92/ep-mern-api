@@ -46,7 +46,7 @@ const login = async function (req: any, res: any) {
 }
 
 const verifyedUser = async function (req: any, res: any){
-    res.status(200).json("user content");
+    res.status(200).json({veryfied : true});
 }
 
 module.exports = {
