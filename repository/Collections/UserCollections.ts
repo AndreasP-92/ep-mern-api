@@ -98,8 +98,9 @@ module.exports = {
             const data = await User.findOne({email: body.email});
 
             const validPassword = await bcrypt.compare(body.password, data.password)
-
+            console.log(data._id)
             return {
+                userId : data._id,
                 validPassword: validPassword,
                 success: true,
                 object: data,

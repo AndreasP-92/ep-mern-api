@@ -39,7 +39,7 @@ const login = async function (req: any, res: any) {
 
 
     validated.success && validated.validPassword ?
-        res.status(202).json({validPassword: validated.validPassword, generatedToken: signInUser.generateToken(validated.id, body), msg: validated.msg})
+        res.status(202).json({userId: validated.userId, validPassword: validated.validPassword, generatedToken: signInUser.generateToken(validated.id, body), msg: validated.msg,})
         :
         res.status(401).json({validPassword: validated.validPassword, msg: "Login error" + validated.msg})
 
