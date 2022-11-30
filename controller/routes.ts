@@ -20,6 +20,10 @@ module.exports = function (app: any) {
   app.get('/api/users/:id', userRepository.getUserById);
   app.delete('/api/users/:id', userRepository.deleteUser);
 
+  // app.post('/', authJwt.verify)
+
+
   // Login
-  app.get('/api/login', userRepository.login);
+  app.post('/api/login/verify', authJwt.verify, userRepository.verifyedUser)
+  app.post('/api/login', userRepository.login);
 };

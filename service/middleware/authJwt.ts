@@ -3,16 +3,16 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config();
 
 const verify = (req: any, res: any, next: any) => {
-    let token = 'bezkoder-secret-key'
+    let token = req.headers["x-access-token"];
 
-    if (token) {
+    if (!token) {
         console.log(token)
-        return res.status(403).json({message: "No token provided"})
+        return res.status(403).json({message: "No token provided", veryfied: false})
     }
 
-    jwt.verify(token, token, (error: any, decoded: any) => {
+    jwt.verify(token, process.env.JWT_PRIVATE_KEY, (error: any, decoded: any) => {
         if (error) {
-            return res.status(401).json({message: "Unauthorized " + error})
+            return res.status(401).json({message: "Unauthorized " + error, veryfied: false})
         }
         req.userId = decoded._id
         next()

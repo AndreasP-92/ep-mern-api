@@ -34,15 +34,20 @@ const deleteUser = async function (req: any, res: any) {
 
 const login = async function (req: any, res: any) {
     const body = req.body;
-
+    console.log(body)
     const validated = await userCollection.validateUser(body);
 
 
     validated.success && validated.validPassword ?
-        res.status(202).json({validPassword: validated.validPassword, generatedToken: signInUser.generateToken(validated.id), msg: validated.msg})
+        res.status(202).json({validPassword: validated.validPassword, generatedToken: signInUser.generateToken(validated.id, body), msg: validated.msg})
         :
         res.status(401).json({validPassword: validated.validPassword, msg: "Login error" + validated.msg})
 
+}
+
+const verifyedUser = async function (req: any, res: any){
+    // TODO ==> return the ID of the logged in user
+    res.status(200).json({veryfied : true});
 }
 
 module.exports = {
@@ -51,5 +56,6 @@ module.exports = {
     updateUser,
     deleteUser,
     getUserById,
-    login
+    login,
+    verifyedUser
 }
