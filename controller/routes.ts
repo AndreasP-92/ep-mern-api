@@ -20,6 +20,7 @@ module.exports = function (app: any) {
   app.get('/api/users', userRepository.getAllUsers);
   app.get('/api/users/:id', userRepository.getUserById);
   app.delete('/api/users/:id', userRepository.deleteUser);
+  app.put('/api/user', userRepository.updateUser);
 
   // Contact us
   app.post('/api/contact', contactRepository.createRequest)

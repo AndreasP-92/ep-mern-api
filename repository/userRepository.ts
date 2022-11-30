@@ -25,7 +25,6 @@ const getUserById = async function (req: any, res: any) {
     res.status(200).json(await userCollection.getUserById(id));
 }
 
-
 const deleteUser = async function (req: any, res: any) {
     const id = req.params.id
     console.log(id)
