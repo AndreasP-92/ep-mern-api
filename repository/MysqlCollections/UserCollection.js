@@ -1,44 +1,45 @@
-const User = require("../../Model/User")
+const db = require('../../startup/mysql')
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken")
+const User = db.users
 
 module.exports = {
-    createUser: async (body: any) => {
+    createUser : async (body)=>{
 
         const salt = await bcrypt.genSalt(10);
         body.password = await bcrypt.hash(body.password, salt);
 
-        const data = new User({
+        const user = {
             firstname: body.firstname,
             lastname: body.lastname,
             email: body.email,
             address: body.address,
-            postal: body.postal,
-            number: body.number,
+            zipcode: body.postal,
+            phone: body.number,
             password: body.password
-        })
-
+        }
+        
         try {
-            const dataToSave = await data.save();
+            const data = await User.create(user)
 
             return {
                 success: true,
-                object: dataToSave
+                object: data,
+                msg: "",
+                status: 200
             }
-        }
-        catch (error) {
+
+        } catch (error) {
             return {
                 success: false,
                 object: {},
-                msg: "OOPS, something went wrong in createUser" + error,
+                msg: "OOPS, something went wrong in createUser " + error,
                 status: 405
             }
         }
     },
-
-    getAllUsers: async (req: any, res: any) => {
+    getAllUsers: async () => {
         try {
-            const data = await User.find();
+            const data = await User.findAll();
 
             return {
                 success: true,
@@ -54,10 +55,9 @@ module.exports = {
             }
         }
     },
-
-    updateUser: async (body: any, userId: string) => {
+    updateUser: async (body, userId) => {
         try {
-            const data = await User.update(userId, body);
+            const data = await User.update(body, {where : {id : userId} });
 
             return {
                 success: true,
@@ -74,9 +74,9 @@ module.exports = {
         }
     },
 
-    getUserById: async (userId: string) => {
+    getUserById: async (userId) => {
         try {
-            const data = await User.findById(userId);
+            const data = await User.findOne({where: {id : userId}});
 
             return {
                 success: true,
@@ -93,33 +93,9 @@ module.exports = {
         }
     },
 
-    validateUser: async (body: any) => {
+    deleteUser: async (userId) => {
         try {
-            const data = await User.findOne({email: body.email});
-
-            const validPassword = await bcrypt.compare(body.password, data.password)
-            console.log(data._id)
-            return {
-                userId : data._id,
-                validPassword: validPassword,
-                success: true,
-                object: data,
-                msg: ""
-            }
-        }
-        catch (error) {
-            return {
-                success: false,
-                Object: {},
-                msg: "OOPS, something went wrong validateUser" + error,
-                status: 405
-            }
-        }
-    },
-
-    deleteUser: async (userId: string) => {
-        try {
-            const data = await User.deleteOne({userId});
+            const data = await User.destroy({where: {id : userId}});
 
             return {
                 success: true,
