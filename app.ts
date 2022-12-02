@@ -2,7 +2,6 @@ export { };
 
 const express = require('express');
 const connectMongo = require('./startup/mongoDB')
-const connectMysql = require("./startup/mysql.js");
 
 const cors = require('cors');
 const path = require('path')
@@ -21,21 +20,25 @@ app.use(express.json());
 
 require('./controller/routes')(app);
 
-// connectMongo();
+switch(process.env.CONNECTED_DB){
+  case 'mysql' :
+    const db = require('./startup/mysql.js')
 
+    db.sequelize.sync()
+    .then(() => {
+      console.log("Synced db.");
+    })
+    .catch((err: any) => {
+      console.log("Failed to sync db: " + err.message);
+    });
 
-
-connectMysql.connectMysql(connectMysql.initializeMysql());
-
-// const db = require('./startup/mysql')
-
-// db.sequelize.sync()
-// .then(() => {
-//   console.log("Synced db.");
-// })
-// .catch((err:any) => {
-//   console.log("Failed to sync db: " + err.message);
-// });
+    break;
+case 'mongo' :
+    connectMongo();
+    break;
+case 'neo4j' :
+    break;
+}
 
 const port = process.env.PORT || 8080;
 
