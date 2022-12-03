@@ -1,8 +1,7 @@
 const driver = require('../../startup/neo4j')
 const session = driver.session();
-const bcrypt = require('bcrypt');
-const uuid = require('node-uuid');
-
+const bcrypt = require('bcrypt')
+const uuid = require('node-uuid')
 // const session = db()
 
 
@@ -22,7 +21,7 @@ module.exports = {
             const result = await session.run(
                 'CREATE (a:User {id: $id, firstname: $firstname, lastname: $lastname, email: $email, address: $address, zipcode: $zipcode, phone: $phone, password: $password}) RETURN a',
                 {
-                    id:uuid.v4(),
+                    id : uuid.v4(),
                     firstname: firstname,
                     lastname: lastname,
                     email: email,
@@ -44,16 +43,58 @@ module.exports = {
 
         } catch (error) {
             console.error(`Something went wrong: ${error}`);
-        } finally {
-            // Close down the session if you're not using it anymore.
-            await session.close();
+        } 
+    },
+    getAllUsers: async () => {
+        try {
+            const result = await session.readTransaction(x => (
+                x.run('MATCH (user: User) return user')
+            ))
+
+            return {
+                success: true,
+                object: result.records,
+                msg: "",
+                status: 200
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                object: {},
+                msg: "OOPS, something went wrong in getAllUsers " + error,
+                status: 405
+            }
+        }
+    },
+    deleteUser: async (userId) => {
+        try {
+            const result = await session.writeTransaction(x => (
+                x.run('MATCH (u:User {id: $id}) DELETE u',
+                {id: userId}
+                )
+            ))
+
+            return {
+                success: true,
+                object: result,
+                msg: "",
+                status: 200
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                Object: {},
+                msg: "OOPS, something went wrong DeleteUser " + error,
+                status: 405
+            }
         }
         // await driver.close()
     },
 
     getUserById: async (userId) => {
         try{
-
             const result = await session.readTransaction(txc => txc.run('MATCH (user:User {id: $id}) RETURN user',
                 {id: userId})
             )

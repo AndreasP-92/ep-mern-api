@@ -73,7 +73,6 @@ module.exports = {
             }
         }
     },
-
     getUserById: async (userId) => {
         try {
             const data = await User.findOne({where: {id : userId}});
@@ -92,7 +91,6 @@ module.exports = {
             }
         }
     },
-
     deleteUser: async (userId) => {
         try {
             const data = await User.destroy({where: {id : userId}});
