@@ -3,7 +3,7 @@ export { };
 const express = require('express');
 const connectMongo = require('./startup/mongoDB')
 
-const connectNeo4j = require('./startup/neo4j')
+// const connectNeo4j = require('./startup/neo4j')
 
 const cors = require('cors');
 const path = require('path')

@@ -16,8 +16,6 @@ const session = driver.session();
 module.exports = {
     createUser: async (body) => {
         const salt = await bcrypt.genSalt(10);
-        body.password = await bcrypt.hash(body.password, salt);
-
 
         const firstname = body.firstname
         const lastname = body.lastname
@@ -25,41 +23,38 @@ module.exports = {
         const address = body.address
         const zipcode = body.postal
         const phone = body.number
-        const password = body.password
+        const password = await bcrypt.hash(body.password, salt);
 
         try {
-            async function createUsers() {
-                const result = await session.run(
-                    'CREATE (a:User {firstname: $firstname, lastname: $lastname, email: $email, address: $address, zipcode; $zipcode, phone: $phone, password: $password}) RETURN a',
-                    {
-                        firstname: firstname,
-                        lastname: lastname,
-                        email: email,
-                        address: address,
-                        zipcode: zipcode,
-                        phone: phone,
-                        password: password
-                    }
-                )
-
-                const singleRecord = result.records[0]
-                const node = singleRecord.get(0)
-
-                return {
-                    success: true,
-                    object: createUsers(),
-                    msg: "",
-                    status: 200
+            const result = await session.run(
+                'CREATE (a:User {firstname: $firstname, lastname: $lastname, email: $email, address: $address, zipcode: $zipcode, phone: $phone, password: $password}) RETURN a',
+                {
+                    firstname: firstname,
+                    lastname: lastname,
+                    email: email,
+                    address: address,
+                    zipcode: zipcode,
+                    phone: phone,
+                    password: password
                 }
+            )
+            const singleRecord = result.records[0]
+            const node = singleRecord.get(0)
+
+            return {
+                success: true,
+                object: node,
+                msg: "",
+                status: 200
             }
 
         } catch (error) {
             console.error(`Something went wrong: ${error}`);
         } finally {
             // Close down the session if you're not using it anymore.
-            await session.close();
+            // await session.close();
         }
-        await driver.close()
+        // await driver.close()
     }
 
 }
