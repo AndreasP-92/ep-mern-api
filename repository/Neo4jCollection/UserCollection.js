@@ -43,14 +43,10 @@ module.exports = {
 
         } catch (error) {
             console.error(`Something went wrong: ${error}`);
-        } finally {
-            // Close down the session if you're not using it anymore.
-            await session.close();
-        }
+        } 
     },
     getAllUsers: async () => {
         try {
-
             const result = await session.readTransaction(x => (
                 x.run('MATCH (user: User) return user')
             ))
@@ -69,16 +65,11 @@ module.exports = {
                 msg: "OOPS, something went wrong in getAllUsers " + error,
                 status: 405
             }
-        }finally {
-            // Close down the session if you're not using it anymore.
-            await session.close();
         }
     },
-
     deleteUser: async (userId) => {
         try {
-
-            const result = await session.readTransaction(x => (
+            const result = await session.writeTransaction(x => (
                 x.run('MATCH (u:User {id: $id}) DELETE u',
                 {id: userId}
                 )
@@ -86,7 +77,7 @@ module.exports = {
 
             return {
                 success: true,
-                object: result.records,
+                object: result,
                 msg: "",
                 status: 200
             }
@@ -95,13 +86,26 @@ module.exports = {
             return {
                 success: false,
                 Object: {},
-                msg: "OOPS, something went wrong UpdateUser " + error,
+                msg: "OOPS, something went wrong DeleteUser " + error,
                 status: 405
             }
-        }finally {
-            // Close down the session if you're not using it anymore.
-            await session.close();
+        }
+        // await driver.close()
+    },
+
+    getUserById: async (userId) => {
+        try{
+            const result = await session.readTransaction(txc => txc.run('MATCH (user:User {id: $id}) RETURN user',
+                {id: userId})
+            )
+            return{
+                success: true,
+                object: result.records,
+                msg: "",
+                status: 200
+            }
+        }catch (error) {
+            console.error(`Something went wrong: ${error}`);
         }
     }
-
 }
