@@ -1,6 +1,7 @@
 const driver = require('../../startup/neo4j')
 const session = driver.session();
 const bcrypt = require('bcrypt')
+const uuid = require('node-uuid')
 // const session = db()
 
 
@@ -18,8 +19,9 @@ module.exports = {
 
         try {
             const result = await session.run(
-                'CREATE (a:User {firstname: $firstname, lastname: $lastname, email: $email, address: $address, zipcode: $zipcode, phone: $phone, password: $password}) RETURN a',
+                'CREATE (a:User {id: $id, firstname: $firstname, lastname: $lastname, email: $email, address: $address, zipcode: $zipcode, phone: $phone, password: $password}) RETURN a',
                 {
+                    id : uuid.v4(),
                     firstname: firstname,
                     lastname: lastname,
                     email: email,
@@ -45,7 +47,61 @@ module.exports = {
             // Close down the session if you're not using it anymore.
             await session.close();
         }
-        // await driver.close()
+    },
+    getAllUsers: async () => {
+        try {
+
+            const result = await session.readTransaction(x => (
+                x.run('MATCH (user: User) return user')
+            ))
+
+            return {
+                success: true,
+                object: result.records,
+                msg: "",
+                status: 200
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                object: {},
+                msg: "OOPS, something went wrong in getAllUsers " + error,
+                status: 405
+            }
+        }finally {
+            // Close down the session if you're not using it anymore.
+            await session.close();
+        }
+    },
+
+    deleteUser: async (userId) => {
+        try {
+
+            const result = await session.readTransaction(x => (
+                x.run('MATCH (u:User {id: $id}) DELETE u',
+                {id: userId}
+                )
+            ))
+
+            return {
+                success: true,
+                object: result.records,
+                msg: "",
+                status: 200
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                Object: {},
+                msg: "OOPS, something went wrong UpdateUser " + error,
+                status: 405
+            }
+        }finally {
+            // Close down the session if you're not using it anymore.
+            await session.close();
+        }
     }
 
 }
