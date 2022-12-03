@@ -145,7 +145,7 @@ module.exports = {
 
             return {
                 success: true,
-                object: node,
+                object: node.properties,
                 msg: "",
                 status: 200
             }
