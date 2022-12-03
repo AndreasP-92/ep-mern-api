@@ -5,14 +5,15 @@ let userCollection = {};
 
 console.log(process.env.CONNECTED_DB)
 
-switch(process.env.CONNECTED_DB){
-    case 'mysql' :
+switch (process.env.CONNECTED_DB) {
+    case 'mysql':
         userCollection = require("./MysqlCollections/UserCollection")
         break;
-    case 'mongo' :
+    case 'mongo':
         userCollection = require("./MongoCollections/UserCollections")
         break;
-    case 'neo4j' :
+    case 'neo4j':
+        userCollection = require("./Neo4jCollection/UserCollection")
         break;
 }
 
@@ -53,14 +54,14 @@ const login = async function (req, res) {
     const validated = await userCollection?.validateUser(body);
 
     validated.success && validated.validPassword ?
-        res.status(202).json({userId: validated?.userId, validPassword: validated?.validPassword, generatedToken: signInUser.generateToken(validated.id, body), msg: validated?.msg,})
+        res.status(202).json({userId: validated?.userId, validPassword: validated?.validPassword, generatedToken: signInUser.generateToken(validated.id, body), msg: validated?.msg, })
         :
         res.status(401).json({validPassword: validated?.validPassword, msg: "Login error" + validated?.msg})
 
 }
 
-const verifyedUser = async function (req, res){
-    res.status(200).json({veryfied : true});
+const verifyedUser = async function (req, res) {
+    res.status(200).json({veryfied: true});
 }
 
 module.exports = {
