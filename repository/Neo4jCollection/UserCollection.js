@@ -114,14 +114,30 @@ module.exports = {
     },
 
     updateUser: async (body, userId) => {
+        const salt = await bcrypt.genSalt(10);
+
         const firstname = body.firstname
+        const lastname = body.lastname
+        const email = body.email
+        const address = body.address
+        const zipcode = body.zipcode
+        const phone = body.phone
+        const password = await bcrypt.hash(body.password, salt);
         const id = userId
+
         try {
             const update = await session.run(
-                `MATCH (a:User {id: $id}) SET a.firstname= $firstname RETURN a`,
+                `MATCH (a:User {id: $id}) SET a.firstname= $firstname, a.lastname= $lastname, a.email= $email, a.address= $address, a.zipcode= $zipcode, a.phone= $phone, a.password= $password RETURN a`,
                 {
                     firstname: firstname,
-                    id: id
+                    id: id,
+                    firstname: firstname,
+                    lastname: lastname,
+                    email: email,
+                    address: address,
+                    zipcode: zipcode,
+                    phone: phone,
+                    password: password
                 }
             )
             const singleRecord = update.records[0]
