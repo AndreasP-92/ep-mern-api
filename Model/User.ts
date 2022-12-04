@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   firstname: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 2,
     maxlength: 50
   },
   lastname: {
@@ -18,13 +18,13 @@ const userSchema = new mongoose.Schema({
   address: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 2,
     maxlength: 50
   },
   postal: {
     type: Number,
     required: true,
-    minlength: 3,
+    minlength: 4,
     maxlength: 4
   },
   number: {
@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 3,
-    maxlength: 1024
+    maxlength: 72
   },
 });
 
