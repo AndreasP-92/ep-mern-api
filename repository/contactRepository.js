@@ -1,7 +1,7 @@
 const RequestCollection = require('./Collections/RequestCollection')
 const NodeMailerService = require('../service/nodeMailerService.js')
 
-const createRequest = async (req: any, res: any) =>{
+const createRequest = async (req, res) =>{
     const body = req.body;
     const sendMail = NodeMailerService.sendMail(body);
 

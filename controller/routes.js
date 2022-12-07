@@ -5,7 +5,7 @@ const sliderImageRepository = require('../repository/sliderImagesRepository');
 const userRepository = require('../repository/userRepository');
 const contactRepository = require('../repository/ContactRepository')
 
-module.exports = function (app: any) {
+module.exports = function (app) {
   // Events
   app.post('/api/searchEvents', eventsRepository.searchEvents);
   app.get('/api/allEvents', eventsRepository.allEvents);
