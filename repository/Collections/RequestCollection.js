@@ -2,7 +2,7 @@ const requestSchema = require('../../Model/Requests');
 
 
 module.exports = {
-    insertRequest: async (body: any)=>{
+    insertRequest: async (body)=>{
         const requestObj = new requestSchema({
             firstname : body.firstname,
             email : body.email,

@@ -2,7 +2,6 @@ const driver = require('../../startup/neo4j')
 const session = driver.session();
 const bcrypt = require('bcrypt')
 const uuid = require('node-uuid')
-// const session = db()
 
 
 module.exports = {
