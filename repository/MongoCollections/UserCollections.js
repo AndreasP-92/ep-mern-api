@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
 
 module.exports = {
-    createUser: async (body: any) => {
+    createUser: async (body) => {
 
         const salt = await bcrypt.genSalt(10);
         body.password = await bcrypt.hash(body.password, salt);
@@ -55,7 +55,7 @@ module.exports = {
         }
     },
 
-    updateUser: async (body: any, userId: string) => {
+    updateUser: async (body, userId) => {
         try {
             const data = await User.update(userId, body);
 
@@ -74,7 +74,7 @@ module.exports = {
         }
     },
 
-    getUserById: async (userId: string) => {
+    getUserById: async (userId) => {
         try {
             const data = await User.findById(userId);
 
@@ -93,7 +93,7 @@ module.exports = {
         }
     },
 
-    validateUser: async (body: any) => {
+    validateUser: async (body) => {
         try {
             const data = await User.findOne({email: body.email});
 
@@ -117,7 +117,7 @@ module.exports = {
         }
     },
 
-    deleteUser: async (userId: string) => {
+    deleteUser: async (userId) => {
         try {
             const data = await User.deleteOne({userId});
 

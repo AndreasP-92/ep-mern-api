@@ -1,7 +1,7 @@
 const SliderImages = require('../../Model/SliderImages')
 
 module.exports = {
-    insertSliderImage: async function (url: String) {
+    insertSliderImage: async function (url) {
 
         const sliderImage = new SliderImages({
             url: url
@@ -24,7 +24,7 @@ module.exports = {
         }
     },
 
-    getAllSliderImages: async function (url: String) {
+    getAllSliderImages: async function (url) {
 
 
         try {

@@ -1,24 +1,19 @@
 // ===== IMPORTS ====
-import Events from '../types/events';
 const axios = require('axios');
 require('dotenv').config();
 
-// ===== OTHER ====
-type GetEventsResponse = {
-  data: Events[];
-};
 
-const allEvents = async function (req: any, res: any) {
+const allEvents = async function (req, res) {
   const header = {
     Accept: 'application/json',
     'Content-Type': 'application/json;charset=UTF-8',
   };
 
   try {
-    const response = (await axios(
+    const response = await axios(
       `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.API_KEY}&locale=da-dk&page=1`,
       header
-    )) as GetEventsResponse;
+    )
 
     res.status(200).json(response.data);
   } catch (err) {
@@ -26,7 +21,7 @@ const allEvents = async function (req: any, res: any) {
   }
 };
 
-const searchEvents = async function (req: any, res: any) {
+const searchEvents = async function (req, res) {
   const body = req.body;
   console.log(body)
   const header = {
@@ -35,10 +30,10 @@ const searchEvents = async function (req: any, res: any) {
   };
 
   try {
-    const response = (await axios(
+    const response = await axios(
       `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.API_KEY}&postalCode=${body.zipcode}&locale=da-dk`,
       header
-    )) as GetEventsResponse;
+    )
 
     res.status(200).json(response.data);
   } catch (err) {
@@ -46,7 +41,7 @@ const searchEvents = async function (req: any, res: any) {
   }
 };
 
-const fetchEventDetails = async function (req: any, res: any) {
+const fetchEventDetails = async function (req, res) {
   const eventId = req.params.id
   console.log(eventId)
 
@@ -56,10 +51,10 @@ const fetchEventDetails = async function (req: any, res: any) {
   };
 
   try {
-    const response = (await axios(
+    const response = await axios(
       `https://app.ticketmaster.com/discovery/v2/events/${eventId}?apikey=${process.env.API_KEY}`,
       header
-    )) as GetEventsResponse;
+    )
     console.log(response);
     res.status(200).json(response.data);
   } catch (err) {
@@ -67,7 +62,7 @@ const fetchEventDetails = async function (req: any, res: any) {
   }
 };
 
-const getNextEventPage = async function (req: any, res: any) {
+const getNextEventPage = async function (req, res) {
   const body = req.body;
   console.log(body)
   const header = {
@@ -76,10 +71,10 @@ const getNextEventPage = async function (req: any, res: any) {
   };
 
   try {
-    const response = (await axios(
+    const response = await axios(
       `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.API_KEY}&locale=da-dk&page=${body.page}`,
       header
-    )) as GetEventsResponse;
+    )
 
     res.status(200).json(response.data);
   } catch (err) {
@@ -87,7 +82,7 @@ const getNextEventPage = async function (req: any, res: any) {
   }
 };
 
-const getEventsByCategory = async function (req: any, res: any) {
+const getEventsByCategory = async function (req, res) {
   const body = req.body;
 
   const header = {
@@ -96,10 +91,10 @@ const getEventsByCategory = async function (req: any, res: any) {
   };
 
   try {
-    const response = (await axios(
+    const response = await axios(
       `https://app.ticketmaster.com/discovery/v2/classifications/segments/${body.category}.json?apikey=${process.env.API_KEY}`,
       header
-    )) as GetEventsResponse;
+    )
 
     res.status(200).json(response.data);
   } catch (err) {

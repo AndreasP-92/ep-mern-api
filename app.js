@@ -1,5 +1,3 @@
-export { };
-
 const express = require('express');
 const connectMongo = require('./startup/mongoDB')
 
@@ -10,7 +8,7 @@ const path = require('path')
 
 const app = express();
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./repository/swagger.json');
+const swaggerDocument = require('./config/swagger.json');
 
 app.use(cors());
 app.use(express.urlencoded({limit: '50mb', extended: true}));
@@ -31,7 +29,7 @@ switch (process.env.CONNECTED_DB) {
       .then(() => {
         console.log("Synced db.");
       })
-      .catch((err: any) => {
+      .catch((err) => {
         console.log("Failed to sync db: " + err.message);
       });
 

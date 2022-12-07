@@ -1,15 +1,12 @@
 // ===== IMPORTS ====
 const DbSliderImage = require('./Collections/DbSliderImages');
-const axios = require('axios');
 require('dotenv').config();
 
-// ===== OTHER ====
 
-
-
-const insertSliderImage = async function (req: any, res: any) {
+const insertSliderImage = async function (req, res) {
   const body = req.body;
-  console.log(body)
+
+
   try {
     res.status(200).json(await DbSliderImage.insertSliderImage(body.url));
   } catch (err) {
@@ -17,8 +14,7 @@ const insertSliderImage = async function (req: any, res: any) {
   }
 };
 
-const getAllSliderImage = async function (req: any, res: any) {
-  // await DbSliderImage.insertSliderImage(body.url)
+const getAllSliderImage = async function (req, res) {
   try {
     res.status(200).json(await DbSliderImage.getAllSliderImages());
   } catch (err) {
