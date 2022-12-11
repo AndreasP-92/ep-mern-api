@@ -3,7 +3,7 @@
 
 
 module.exports = function (app) {
-    app.get('/api/ticketmasterstub/get/all', function (req, res){
+    app.get('/api/ticketmasterstub/get/all&locale=da-dk&page=1', function (req, res){
         res.json({
             _embedded : {
                 events : [
@@ -36,7 +36,7 @@ module.exports = function (app) {
         })
     });
 
-    app.get('/api/ticketmasterstub/search/:zip', function (req, res){
+    app.get('/api/ticketmasterstub/search&postalCode=:postalCode&locale=da-dk', function (req, res){
         res.json({
             _embedded : {
                 events : [
