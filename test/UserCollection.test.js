@@ -6,7 +6,11 @@ const jwt = require("jsonwebtoken")
 
 
 test('adds 1 + 2 to equal 3', () => {
-
+  const test = User.findOne = jest.fn().mockReturnValueOnce({
+    name: "Amy's"
+  });
+  const test2 = test.getMockName()
+  
     expect(sum(1, 2)).toBe(3);
   });
 
