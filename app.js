@@ -1,8 +1,6 @@
 const express = require('express');
 const connectMongo = require('./startup/mongoDB')
 
-// const connectNeo4j = require('./startup/neo4j')
-
 const cors = require('cors');
 const path = require('path')
 
@@ -16,10 +14,7 @@ app.use(express.json({limit: '50mb'}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-// app.use('/api', routes)
-
 require('./controller/routes')(app);
-
 
 switch (process.env.CONNECTED_DB) {
   case 'mysql':
