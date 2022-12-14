@@ -36,7 +36,7 @@ switch (process.env.CONNECTED_DB) {
     break;
 }
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3001;
 
 app.listen(port, () =>
   console.log(`Listening on port ${port}...`)
