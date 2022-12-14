@@ -23,8 +23,8 @@ steps:
   displayName: 'yarn test'
 
 - script: |
-    yarn uninstall
-  displayName: 'yarn uninstall'
+    yarn remove
+  displayName: 'Clean packages'
 
 - task: CopyFilesOverSSH@0
   inputs:
