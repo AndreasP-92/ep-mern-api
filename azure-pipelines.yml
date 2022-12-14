@@ -13,7 +13,7 @@ jobs:
     condition: 
 
   - script: |
-      yarn install
+      yarn add jest
     displayName: 'yarn add jest'
     workingDirectory: ./api
 
