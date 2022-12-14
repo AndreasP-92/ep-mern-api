@@ -1,35 +1,48 @@
 trigger:
 - main
 
-pool:
-  vmImage: 'ubuntu-latest'
+# jobs:
+# - job: myJob
+#   timeoutInMinutes: 10
+#   pool:
+#     vmImage: 'ubuntu-latest'
+#   steps:
+#   - bash: echo "Hello world"
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '16.x'
-  displayName: 'Install Node.js'
-  condition: 
+jobs:
+- job: test
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '16.x'
+    displayName: 'Install Node.js'
+    condition: 
 # - task: CmdLine@2
 #   inputs:
 #     script: 'cd ./api'
 
-- script: |
-    yarn install
-  displayName: 'yarn install'
+  - script: |
+      yarn
+    displayName: 'yarn install'
 
-- script: |
-    yarn test
-  displayName: 'yarn test'
+  - script: |
+      yarn test
+    displayName: 'yarn test'
 
-- script: |
-    npm uninstall *
-  displayName: 'Clean packages'
-
-- task: CopyFilesOverSSH@0
-  inputs:
-    sshEndpoint: 'EP-Server'
-    contents: '**'
-    targetFolder: '/api'
-    readyTimeout: '20000'
+#   - script: |
+#       npm uninstall *
+#     displayName: 'Clean packages'
+#   -job: Deploy
+- job: deploy
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - task: CopyFilesOverSSH@0
+    inputs:
+      sshEndpoint: 'EP-Server'
+      contents: '**'
+      targetFolder: '/api'
+      readyTimeout: '20000'
 
