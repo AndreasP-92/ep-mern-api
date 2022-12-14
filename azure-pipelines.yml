@@ -23,6 +23,8 @@ jobs:
       yarn test
     displayName: 'yarn test'
     workingDirectory: ./api
+    env:
+      JWT_PRIVATE_KEY: $(AAJ-AWESOME-KEY)
 
 - job: deploy
   pool:
