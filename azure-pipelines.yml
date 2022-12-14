@@ -38,7 +38,7 @@ jobs:
       sshEndpoint: 'EP-Server'
       runOptions: 'inline'
       inline: '
-      cd ~/../app; 
+      cd ~/../api; 
       docker-compose up --build -d'
       failOnStdErr: false
       readyTimeout: '20000'
