@@ -1,14 +1,6 @@
 trigger:
 - main
 
-# jobs:
-# - job: myJob
-#   timeoutInMinutes: 10
-#   pool:
-#     vmImage: 'ubuntu-latest'
-#   steps:
-#   - bash: echo "Hello world"
-
 jobs:
 - job: test
   pool:
@@ -31,10 +23,6 @@ jobs:
       yarn test
     displayName: 'yarn test'
 
-#   - script: |
-#       npm uninstall *
-#     displayName: 'Clean packages'
-#   -job: Deploy
 - job: deploy
   pool:
     vmImage: 'ubuntu-latest'
@@ -44,5 +32,14 @@ jobs:
       sshEndpoint: 'EP-Server'
       contents: '**'
       targetFolder: '/api'
+      readyTimeout: '20000'
+  - task: SSH@0
+    inputs:
+      sshEndpoint: 'EP-Server'
+      runOptions: 'inline'
+      inline: '
+      cd ~/../app; 
+      docker-compose up --build -d'
+      failOnStdErr: false
       readyTimeout: '20000'
 
