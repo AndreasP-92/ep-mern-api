@@ -1,9 +1,9 @@
 const express = require('express');
-const authJwt = require('../service/middleware/authJwt');
-const eventsRepository = require('../repository/eventsRepository');
-const sliderImageRepository = require('../repository/sliderImagesRepository');
-const userRepository = require('../repository/userRepository');
-const contactRepository = require('../repository/ContactRepository')
+const authJwt = require('.././service/middleware/authJwt');
+const eventsRepository = require('.././repository/eventsRepository');
+const sliderImageRepository = require('.././repository/sliderImagesRepository');
+const userRepository = require('.././repository/userRepository');
+const contactRepository = require('.././repository/ContactRepository')
 
 module.exports = function (app) {
   // Events
