@@ -13,13 +13,14 @@ jobs:
     condition: 
   - task: CmdLine@2
     inputs:
-      script: 'cd ./api'
+      script: ''
 
   - script: |
       yarn
     displayName: 'yarn install'
 
   - script: |
+      cd ./api
       yarn test
     displayName: 'yarn test'
 
