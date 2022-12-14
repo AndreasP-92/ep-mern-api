@@ -29,4 +29,9 @@ module.exports = function (app) {
   // Login
   app.post('/api/login/verify', authJwt.verify, userRepository.verifyedUser)
   app.post('/api/login', userRepository.login);
+
+  // Stup
+  require('../test/TicketMasterStub/TMStubMain')(app);
+
 };
+

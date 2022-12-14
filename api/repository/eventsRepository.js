@@ -3,15 +3,22 @@ const axios = require('axios');
 require('dotenv').config();
 
 
+let url = process.env.EVENT_MASTER_URL;
+
+if(process.env.ENVIRONTMENT == 'dev'){
+  url = process.env.DEV_EVENT_MASTER_URL
+  console.log("hej")
+}
+
 const allEvents = async function (req, res) {
   const header = {
     Accept: 'application/json',
     'Content-Type': 'application/json;charset=UTF-8',
   };
-
+  console.log(url)
   try {
     const response = await axios(
-      `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.API_KEY}&locale=da-dk&page=1`,
+      `${process.env.ENVIRONTMENT == 'dev' ? url+'/get/all' : url}&locale=da-dk&page=1`,
       header
     )
 
@@ -31,7 +38,7 @@ const searchEvents = async function (req, res) {
 
   try {
     const response = await axios(
-      `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.API_KEY}&postalCode=${body.zipcode}&locale=da-dk`,
+      `${process.env.ENVIRONTMENT == 'dev' ? url+'/search' : url}&postalCode=${body.zipcode}&locale=da-dk`,
       header
     )
 
