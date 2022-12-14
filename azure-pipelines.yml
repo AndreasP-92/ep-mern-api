@@ -21,6 +21,11 @@ steps:
 - script: |
     yarn test
   displayName: 'yarn test'
+  
+
+- checkout: self
+  clean: true
+  fetchDepth: 1
 
 - task: CopyFilesOverSSH@0
   inputs:
