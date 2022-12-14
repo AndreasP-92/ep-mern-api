@@ -22,3 +22,10 @@ steps:
     yarn test
   displayName: 'yarn test'
 
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'EP-Server'
+    contents: '**'
+    targetFolder: '/api'
+    readyTimeout: '20000'
+
