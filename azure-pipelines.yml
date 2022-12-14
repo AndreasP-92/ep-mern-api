@@ -15,14 +15,14 @@ jobs:
   - script: |
       yarn install
     displayName: 'yarn install'
-    workingDirectory: /api
+    workingDirectory: ./api
 
 
   - script: |
       cd ./api
       yarn test
     displayName: 'yarn test'
-    workingDirectory: /api
+    workingDirectory: ./api
 
 - job: deploy
   pool:
