@@ -10,9 +10,9 @@ steps:
     versionSpec: '16.x'
   displayName: 'Install Node.js'
   condition: 
-- task: CmdLine@2
-  inputs:
-    script: 'cd ./api'
+# - task: CmdLine@2
+#   inputs:
+#     script: 'cd ./api'
 
 - script: |
     yarn install
