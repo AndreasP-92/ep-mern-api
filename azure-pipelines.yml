@@ -13,7 +13,8 @@ jobs:
     condition: 
 
   - script: |
-      yarn
+      cd ./
+      yarn install
     displayName: 'yarn install'
 
   - script: |
