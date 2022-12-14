@@ -22,6 +22,10 @@ steps:
     yarn test
   displayName: 'yarn test'
 
+- script: |
+    yarn uninstall
+  displayName: 'yarn uninstall'
+
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'EP-Server'
