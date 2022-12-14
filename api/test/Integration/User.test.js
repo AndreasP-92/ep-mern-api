@@ -9,7 +9,7 @@ describe('Check if /api/allEvents returns 200', () => {
             "password" : "1234",
             "key" : process.env.JWT_PRIVATE_KEY
         }
-        await axios.post('http://localhost:8080/api/login', testUser)
+        await axios.post('http://207.154.228.42:3001/api/login', testUser)
             .then(r => {
                 expect(r.status).toBe(202);
             })
