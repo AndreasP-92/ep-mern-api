@@ -9,6 +9,7 @@ describe('Check if /api/allEvents returns 200', () => {
                 expect(r.status).toBe(200);
             })
             .catch(e => {
+                console.log(e)
                 throw new Error;
             });
     });
