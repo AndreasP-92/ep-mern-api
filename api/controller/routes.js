@@ -3,7 +3,7 @@ const authJwt = require('.././service/middleware/authJwt');
 const eventsRepository = require('.././repository/eventsRepository');
 const sliderImageRepository = require('.././repository/sliderImagesRepository');
 const userRepository = require('.././repository/userRepository');
-const contactRepository = require('.././repository/ContactRepository')
+const contactRepository = require('.././repository/contactRepository')
 
 module.exports = function (app) {
   // Events
