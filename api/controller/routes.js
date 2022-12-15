@@ -3,7 +3,7 @@ const authJwt = require('.././service/middleware/authJwt');
 const eventsRepository = require('.././repository/eventsRepository');
 const sliderImageRepository = require('.././repository/sliderImagesRepository');
 const userRepository = require('.././repository/userRepository');
-// const contactRepository = require('.././repository/ContactRepository')
+const contactRepository = require('.././repository/ContactRepository')
 
 module.exports = function (app) {
   // Events
@@ -21,10 +21,10 @@ module.exports = function (app) {
   app.get('/api/users', userRepository.getAllUsers);
   app.get('/api/users/:id', userRepository.getUserById);
   app.delete('/api/users/:id', userRepository.deleteUser);
-  app.put('/api/user/:id', userRepository.updateUser);
+  app.put('/api/user', userRepository.updateUser);
 
   // Contact us
-  // app.post('/api/contact', contactRepository.createRequest)
+  app.post('/api/contact', contactRepository.createRequest)
 
   // Login
   app.post('/api/login/verify', authJwt.verify, userRepository.verifyedUser)
