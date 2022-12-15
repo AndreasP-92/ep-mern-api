@@ -30,20 +30,20 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-  - task: SSH@0
-    inputs:
-      sshEndpoint: 'EP-Server'
-      runOptions: 'inline'
-      inline: |
-        if [ $? -eq 0 ]
-        then
-          echo "Failure: I found error in file. Test failed."
-          exit 1
-        else
-          echo "Success: I did not find error in file. Test passed." >&2
-          exit 0
-        fi
-      readyTimeout: '20000'
+  # - task: SSH@0
+  #   inputs:
+  #     sshEndpoint: 'EP-Server'
+  #     runOptions: 'inline'
+  #     inline: |
+  #       if [ $? -eq 0 ]
+  #       then
+  #         echo "Failure: I found error in file. Test failed."
+  #         exit 1
+  #       else
+  #         echo "Success: I did not find error in file. Test passed." >&2
+  #         exit 0
+  #       fi
+  #     readyTimeout: '20000'
   - task: CopyFilesOverSSH@0
     inputs:
       sshEndpoint: 'EP-Server'
@@ -56,7 +56,7 @@ jobs:
       runOptions: 'inline'
       inline: '
       cd ~/../api; 
-      docker-compose up --build -d'
+      docker-compose up --build -d;'
       failOnStdErr: false
       readyTimeout: '20000'
 
