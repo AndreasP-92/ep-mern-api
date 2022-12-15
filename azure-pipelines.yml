@@ -64,7 +64,7 @@ jobs:
         else
           echo "Success: I did not find error in file. Test passed." >&2
           exit 0
-        fi;'
+        fi'
       failOnStdErr: false
       readyTimeout: '20000'
 
