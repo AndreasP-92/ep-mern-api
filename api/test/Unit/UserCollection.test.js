@@ -1,4 +1,4 @@
-const User = require("../Model/User")
+const User = require("../../Model/User")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
 // const userRepository = require('../repository/userRepository');
@@ -19,6 +19,7 @@ test('Update one user', () => {
   });
 
   expect(test()).toEqual({name: "Abdu"});
+
 });
 
 test('Delete one user', () => {
@@ -40,8 +41,18 @@ test('Create a user', async () => {
     password: "1233542"
   }
 
+  const service2 = {
+    lastname: "henffdsddsasrik",
+    email: "abdu@gmail.com",
+    address: "tårdndfdsfdasdssfvej 123",
+    postal: "2610",
+    number: "77304091",
+    password: "1233542"
+  }
+
   const test = User.create = jest.fn().mockReturnValueOnce(service);
 
   expect(test()).toEqual(service);
+  expect(test()).not.toEqual(service2);
 
 });
