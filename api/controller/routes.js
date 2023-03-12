@@ -1,9 +1,14 @@
 const express = require('express');
 const authJwt = require('.././service/middleware/authJwt');
+// TODO ==> Move repositories to service/middleware/routeService
+
 const eventsRepository = require('.././repository/eventsRepository');
 const sliderImageRepository = require('.././repository/sliderImagesRepository');
 const userRepository = require('.././repository/userRepository');
 const contactRepository = require('.././repository/contactRepository')
+
+// === MIDDLEWARE ==
+const rabbitMQService = require("../service/middleware/routeServices/rabbitMQService")
 
 module.exports = function (app) {
   // Events
@@ -24,14 +29,17 @@ module.exports = function (app) {
   app.put('/api/user', userRepository.updateUser);
 
   // Contact us
-  app.post('/api/contact', contactRepository.createRequest)
+  // Message Queue
+  app.post('/api/contact', rabbitMQService.createTicketService)
 
   // Login
   app.post('/api/login/verify', authJwt.verify, userRepository.verifyedUser)
   app.post('/api/login', userRepository.login);
+  
 
-  // Stup
+  
+
+  // Setup
   require('../test/TicketMasterStub/TMStubMain')(app);
-
 };
 

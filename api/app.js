@@ -7,13 +7,14 @@ const path = require('path')
 const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./config/swagger.json');
+const amqp = require("amqplib");
 
 app.use(cors());
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json({limit: '50mb'}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
-
+// ================ HEJ ===============
 require('./controller/routes')(app);
 
 switch (process.env.CONNECTED_DB) {
