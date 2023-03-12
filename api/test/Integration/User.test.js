@@ -5,7 +5,7 @@ require('dotenv').config();
 describe('Check if /api/allEvents returns 200', () => {
     test('Get successful result of the API call', async () => {
         const testUser = {
-            "email" : "m@m.dk",
+            "email" : "a@a.dk",
             "password" : "1234",
             "key" : process.env.JWT_PRIVATE_KEY
         }
@@ -18,3 +18,9 @@ describe('Check if /api/allEvents returns 200', () => {
             });
     });
 });
+
+// test('tmp test', () => {
+
+  
+//     expect(5).toEqual(5);
+//   });
