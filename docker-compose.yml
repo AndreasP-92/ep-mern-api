@@ -1,5 +1,10 @@
 version: '3.8'
 
+
+networks:
+  ep-mern:
+    external : true
+
 services:
 
   nginx_api:
@@ -11,6 +16,8 @@ services:
       context: ./nginx
     ports:
       - "3001:3001"
+    networks: 
+      - ep-mern  
 
   api:
     stdin_open: true
@@ -43,3 +50,5 @@ services:
     volumes:
       - /api/node_modules
       - ./api:/app
+    networks: 
+      - ep-mern 

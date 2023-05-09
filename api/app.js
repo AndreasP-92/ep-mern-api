@@ -7,7 +7,7 @@ const path = require('path')
 const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./config/swagger.json');
-const amqp = require("amqplib");
+// const amqp = require("amqplib");
 
 app.use(cors());
 app.use(express.urlencoded({limit: '50mb', extended: true}));

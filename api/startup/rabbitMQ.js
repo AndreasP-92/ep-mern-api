@@ -4,7 +4,7 @@ let channel, connection;
 
 async function connectQueue() {   
     try {
-        connection = await amqp.connect("amqp://localhost:5672");
+        connection = await amqp.connect("amqp://172.20.0.2:5672");
         channel    = await connection.createChannel()
         
         await channel.assertQueue("test-queue")
