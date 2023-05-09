@@ -1,9 +1,8 @@
 version: '3.8'
 
-
-networks:
-  ep-mern:
-    external : true
+networks: 
+  ep-mern: 
+    external: true
 
 services:
 
@@ -14,10 +13,10 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./nginx
+    networks: 
+      - ep-mern
     ports:
       - "3001:3001"
-    networks: 
-      - ep-mern  
 
   api:
     stdin_open: true
@@ -51,4 +50,4 @@ services:
       - /api/node_modules
       - ./api:/app
     networks: 
-      - ep-mern 
+      - ep-mern
