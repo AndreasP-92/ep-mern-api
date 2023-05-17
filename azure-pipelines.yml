@@ -1,0 +1,49 @@
+trigger:
+- main
+
+jobs:
+- job: test
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '16.x'
+    displayName: 'Install Node.js'
+    condition: 
+
+  - script: |
+      yarn add jest
+    displayName: 'yarn add jest'
+    workingDirectory: ./api
+
+
+  - script: |
+      cd ./api
+      yarn test
+    displayName: 'yarn test'
+    workingDirectory: ./api
+    env:
+      JWT_PRIVATE_KEY: $(AAJ-AWESOME-KEY)
+
+- job: deploy
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - task: CopyFilesOverSSH@0
+    inputs:
+      sshEndpoint: 'EP-Server'
+      contents: '**'
+      targetFolder: '/api'
+      readyTimeout: '20000'
+  - task: SSH@0
+    inputs:
+      sshEndpoint: 'EP-Server'
+      runOptions: 'inline'
+      inline: '
+      cd ~/../api; 
+      docker-compose up --build -d;'
+      failOnStdErr: false
+      readyTimeout: '20000'
+  dependsOn:
+  - test
