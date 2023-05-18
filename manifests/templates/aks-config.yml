@@ -42,3 +42,22 @@ spec:
   - port: 3000
   selector:
     app: ep-mern-api
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name:  ep-mern-api
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+ - host:  ep-mern-api.k8s-test-2-dns-czux3v9j.hcp.swedencentral.azmk8s.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: ep-mern-api
+            port: 
+              number: 3000
