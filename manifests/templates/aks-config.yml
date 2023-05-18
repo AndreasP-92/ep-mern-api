@@ -38,7 +38,6 @@ kind: Service
 metadata:
   name: ep-mern-api
 spec:
-  type: LoadBalancer
   ports:
   - port: 3000
   selector:
