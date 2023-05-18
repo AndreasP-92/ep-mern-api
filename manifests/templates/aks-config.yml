@@ -36,7 +36,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ep-mern-api
+  name: ep-mern-api 
 spec:
   type: ClusterIP
   ports:
@@ -52,7 +52,7 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
- - host:  ep-mern-api.k8s-test-2-dns-czux3v9j.hcp.swedencentral.azmk8s.io
+  - host:  ep-mern-api.k8s-test-2-dns-czux3v9j.hcp.swedencentral.azmk8s.io
     http:
       paths:
       - path: /
