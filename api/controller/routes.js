@@ -5,6 +5,7 @@ const authJwt = require('.././service/middleware/authJwt');
 const eventsRepository = require('.././repository/eventsRepository');
 const sliderImageRepository = require('.././repository/sliderImagesRepository');
 const userRepository = require('.././repository/userRepository');
+const ticketRepository = require('.././repository/ticketRepository');
 const contactRepository = require('.././repository/contactRepository')
 
 // === MIDDLEWARE ==
@@ -31,13 +32,14 @@ module.exports = function (app) {
   // Contact us
   // Message Queue
   app.post('/api/contact', rabbitMQService.createTicketService)
+  app.get('/api/tickets', ticketRepository.getAllTickets)
 
   // Login
   app.post('/api/login/verify', authJwt.verify, userRepository.verifyedUser)
   app.post('/api/login', userRepository.login);
-  
 
-  
+
+
 
   // Setup
   require('../test/TicketMasterStub/TMStubMain')(app);
