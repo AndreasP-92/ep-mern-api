@@ -5,7 +5,7 @@ let channel, connection;
 async function connectQueue() {
     try {
         if (process.env.ENVIRONTMENT == 'prod') {
-            connection = await amqp.connect("amqp://172.26.0.2:5672");
+            connection = await amqp.connect("amqp://20.240.169.172:5672");
         } else {
             connection = await amqp.connect("amqp://localhost:5672");
         }

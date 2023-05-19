@@ -1,8 +1,8 @@
 version: '3.8'
 
-networks: 
-  ep-mern: 
-    external: true
+# networks: 
+#   ep-mern: 
+#     external: true
 
 services:
 

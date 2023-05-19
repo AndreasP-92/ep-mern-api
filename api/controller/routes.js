@@ -11,6 +11,10 @@ const contactRepository = require('.././repository/contactRepository')
 const rabbitMQService = require("../service/middleware/routeServices/rabbitMQService")
 
 module.exports = function (app) {
+  app.get('/api/', (req,res)=>{
+    res.send("Welcome to API")
+  })
+
   // Events
   app.post('/api/searchEvents', eventsRepository.searchEvents);
   app.get('/api/allEvents', eventsRepository.allEvents);
