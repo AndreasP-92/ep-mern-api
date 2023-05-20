@@ -26,4 +26,4 @@ data:
   CONNECTED_DB: "none"
 
 
-  PORT: 3002
+  PORT: "3002"
