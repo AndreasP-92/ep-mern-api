@@ -5,7 +5,8 @@ const authJwt = require('.././service/middleware/authJwt');
 const eventsRepository = require('.././repository/eventsRepository');
 const sliderImageRepository = require('.././repository/sliderImagesRepository');
 const userRepository = require('.././repository/userRepository');
-const contactRepository = require('.././repository/contactRepository')
+const contactRepository = require('.././repository/contactRepository');
+const elasticRepositiry = require('.././repository/elasticRepository');
 
 // === MIDDLEWARE ==
 const rabbitMQService = require("../service/middleware/routeServices/rabbitMQService")
@@ -41,7 +42,8 @@ module.exports = function (app) {
   app.post('/api/login', userRepository.login);
   
 
-  
+  //Elastic logs
+  app.post('/api/logs/login', elasticRepositiry.getLogs)
 
   // Setup
   require('../test/TicketMasterStub/TMStubMain')(app);
