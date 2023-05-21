@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ep-config-map
+  name: api-config-map
 data:
   CHOKIDAR_USEPOLLING: "true"
   API_KEY: "S36HVZZjkZjRGm2FTSDwYkdrB5GsGne3"
