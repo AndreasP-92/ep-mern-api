@@ -22,15 +22,17 @@ module.exports = {
                 ]
             }
 
-              const body  = await client.search({
+            const body  = await client.search({
                 index: 'rdbms_idx',
                 body: longOnEmail
-                
-              })
-              console.log(body.hits.hits)
+            })
+            console.log(body.hits.hits)
+            return {
+                success: true,
+                object: body.hits.hits
+            }
   
-            } 
-        catch (error) {
+        }catch (error) {
             console.log(error)
         }
     }
