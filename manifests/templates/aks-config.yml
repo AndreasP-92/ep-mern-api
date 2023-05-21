@@ -24,7 +24,7 @@ spec:
         image: azurecontainerlorde.azurecr.io/ep-mern-api:${BUILD_TAG}
         envFrom: 
         - configMapRef:
-            name: ep-config-map
+            name: api-config-map
         ports:
         - containerPort: 3002
         resources:

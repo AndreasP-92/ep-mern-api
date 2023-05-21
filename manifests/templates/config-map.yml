@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ep-config-map
+  name: api-config-map
 data:
   CHOKIDAR_USEPOLLING: "true"
   API_KEY: "S36HVZZjkZjRGm2FTSDwYkdrB5GsGne3"
@@ -26,4 +26,4 @@ data:
   CONNECTED_DB: "none"
 
 
-  PORT: 3002
+  PORT: "3002"
