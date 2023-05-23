@@ -33,6 +33,9 @@ module.exports = function (app) {
   // Message Queue
   app.post('/api/contact', rabbitMQService.createTicketService)
   app.get('/api/tickets', ticketRepository.getAllTickets)
+  app.post('/api/tickets', ticketRepository.createResponse)
+  app.get('/api/response', ticketRepository.getResponses)
+
 
   // Login
   app.post('/api/login/verify', authJwt.verify, userRepository.verifyedUser)
