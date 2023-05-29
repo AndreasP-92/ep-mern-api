@@ -5,6 +5,7 @@ const authJwt = require('.././service/middleware/authJwt');
 const eventsRepository = require('.././repository/eventsRepository');
 const sliderImageRepository = require('.././repository/sliderImagesRepository');
 const userRepository = require('.././repository/userRepository');
+const ticketRepository = require('.././repository/ticketRepository');
 const contactRepository = require('.././repository/contactRepository');
 const elasticRepositiry = require('.././repository/elasticRepository');
 
@@ -12,7 +13,7 @@ const elasticRepositiry = require('.././repository/elasticRepository');
 const rabbitMQService = require("../service/middleware/routeServices/rabbitMQService")
 
 module.exports = function (app) {
-  app.get('/api/', (req,res)=>{
+  app.get('/api/', (req, res) => {
     res.send("Welcome to API")
   })
 
@@ -36,11 +37,15 @@ module.exports = function (app) {
   // Contact us
   // Message Queue
   app.post('/api/contact', rabbitMQService.createTicketService)
+  app.get('/api/tickets', ticketRepository.getAllTickets)
+  app.post('/api/tickets', ticketRepository.createResponse)
+  app.get('/api/response', ticketRepository.getResponses)
+
 
   // Login
   app.post('/api/login/verify', authJwt.verify, userRepository.verifyedUser)
   app.post('/api/login', userRepository.login);
-  
+
 
   //Elastic logs
   app.post('/api/logs/login', elasticRepositiry.getLogs)
