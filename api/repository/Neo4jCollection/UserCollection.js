@@ -70,7 +70,7 @@ module.exports = {
         try {
             const result = await session.writeTransaction(x => (
                 x.run('MATCH (u:User {id: $id}) DELETE u',
-                    {id: userId}
+                    { id: userId }
                 )
             ))
 
@@ -94,7 +94,7 @@ module.exports = {
     getUserById: async (userId) => {
         try {
             const result = await session.readTransaction(txc => txc.run('MATCH (user:User {id: $id}) RETURN user',
-                {id: userId})
+                { id: userId })
             )
             return {
                 success: true,

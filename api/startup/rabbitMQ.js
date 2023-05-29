@@ -21,17 +21,6 @@ async function connectQueue() {
 
 connectQueue()
 
-async function sendData(data) {
-
-    //send data to queue
-    await channel.sendToQueue("test-queue", Buffer.from(JSON.stringify(data)));
-
-    //close the channel and connection
-
-    await channel.close();
-    await connection.close();
-}
-
 async function sendTicket(data) {
 
     //send data to queue
