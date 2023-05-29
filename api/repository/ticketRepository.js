@@ -5,7 +5,14 @@ require('dotenv').config();
 const getAllTickets = async function (req, res) {
     const body = req.body;
     console.log(body)
-    res.status(200).json(await UserCollection?.getAllTickets());
+
+    try {
+        res.status(200).json(await UserCollection.getAllTickets());
+        
+    } catch (error) {
+        res.status(200).json(await UserCollection.getAllTickets());
+    }
+
 };
 
 const createResponse = async function (req, res) {
