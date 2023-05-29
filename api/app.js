@@ -37,7 +37,7 @@ switch (process.env.CONNECTED_DB) {
     break;
 }
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3002;
 
 app.listen(port, () =>
   console.log(`Listening on port ${port} in ${process.env.ENVIRONTMENT} mode && ${process.env.CONNECTED_DB} database mode`)

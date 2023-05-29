@@ -21,7 +21,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: ep-mern-api
-        image: azurecontainerlorde.azurecr.io/ep-mern-api:${BUILD_TAG}
+        image: azurecontainerlord.azurecr.io/ep-mern-api:${BUILD_TAG}
         envFrom: 
         - configMapRef:
             name: api-config-map
