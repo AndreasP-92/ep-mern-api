@@ -8,7 +8,6 @@ const getAllTickets = async function (req, res) {
 
     try {
         res.status(200).json(await UserCollection.getAllTickets());
-        
     } catch (error) {
         res.status(200).json(await UserCollection.getAllTickets());
     }
